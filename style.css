@@ -48,9 +48,16 @@ body {
 	padding-right: 32px;
 }
 .chart-card {
+	transition: transform 0.2s ease-out;
 	margin-top: 32px;
 	display: inline-flex !important;
-	width: 32%
+	width: 32%;
+	cursor: pointer;
+	transform-origin: 50% 50%;
+	transform: scale(1)
+}
+.chart-card:hover {
+	transform: scale(1.05)
 }
 .chart-card .mdl-card__title {
 	background-position: center center;
