@@ -1,0 +1,67 @@
+html,
+body {
+	height: 100%
+}
+.mdl-layout__content {
+	display: inline-flex;
+	flex-direction: column
+}
+.mdl-layout__drawer-button {
+	color: white
+}
+.mdl-card__supporting-text {
+	text-align: left
+}
+.page-content {
+	flex: 1
+}
+.side-menu > a {
+	padding-left: 24px !important
+}
+.side-menu > a > i {
+	width: 40px;
+	text-align: center;
+	font-size: 1.25em
+}
+.spacer {
+	text-align: justify
+}
+.spacer > span {
+	display: inline-block;
+	width: 100%
+}
+#frame-content {
+	margin: 0 auto;
+	width: 100%;
+	max-width: 1720px
+}
+#frame-content .side {
+	box-sizing: border-box;
+	padding-left: 32px;
+	padding-right: 32px;
+}
+.chart-card {
+	margin-top: 32px;
+	display: inline-flex !important;
+	width: 32%
+}
+.chart-card .mdl-card__title {
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 192px;
+	padding: 0px
+}
+.chart-card .mdl-card__title-text {
+	background-color: rgba(0, 0, 0, 0.5);
+	font-size: 20px;
+	padding: 16px;
+	width: 100%;
+	color: white
+}
+
+@media screen and (max-width: 1023px) {
+	.chart-card {
+		width: 100%
+	}	
+}
