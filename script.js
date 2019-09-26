@@ -52,26 +52,47 @@ const page = {
 	fillDrawer: () => {
 		const parent = document.querySelector(".side-menu");
 		page.items.forEach((e, index) => {
-			const a = document.createElement("A");
-			a.setAttribute("class", "mdl-navigation__link");
-			a.setAttribute("href", "#");
-			a.onclick = () => {
-				page.load(index);
-			};
-			parent.appendChild(a);
+			// Create anchor
+			const div = document.createElement("DIV");
+			div.setAttribute("class", "mdl-navigation__link");
+			div.setAttribute("href", "javascript:void(0)"); // Avoid following hyperlink
+			parent.appendChild(div);
 			
-			const i = document.createElement("I");
-			i.setAttribute("class", e.icon);
-			a.appendChild(i);
+			// Create icon on left side
+			{
+				const i = document.createElement("I");
+				i.setAttribute("class", e.icon);
+				div.appendChild(i);
+			}
 			
-			a.appendChild(document.createTextNode(e.name));
+			// Selectable checkbox with label
+			{
+				const id = "cb" + Math.round(Math.random() * 100000);
+				
+				const label = document.createElement("LABEL");
+				label.setAttribute("class", "mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect");
+				label.setAttribute("for", id);
+				div.appendChild(label);
+				
+				const input = document.createElement("INPUT");
+				input.setAttribute("class", "mdl-checkbox__input");
+				input.setAttribute("type", "checkbox");
+				input.setAttribute("id", id);
+				label.appendChild(input);
+				
+				const span = document.createElement("SPAN");
+				span.setAttribute("class", "mdl-checkbox__label");
+				span.innerHTML = e.name;
+				label.appendChild(span);
+
+			}
 		});
+		
+		// Update the DOM
+		componentHandler.upgradeDom();
 	},
 	
-	load: (index) => {
-		// Set page title
-		document.getElementById("view-label").innerHTML = page.items[index].name;
-		
+	load: (index) => {		
 		// Clear content
 		const parent = document.getElementById("frame-content");
 		while (parent.firstChild !== null)

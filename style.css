@@ -15,13 +15,20 @@ body {
 .page-content {
 	flex: 1
 }
-.side-menu > a {
+.side-menu > div {
+	display: flex !important;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
 	padding-left: 24px !important
 }
-.side-menu > a > i {
+.side-menu > div > i {
 	width: 40px;
 	text-align: center;
 	font-size: 1.25em
+}
+.side-menu > div > label {
+	width: auto
 }
 .spacer {
 	text-align: justify
