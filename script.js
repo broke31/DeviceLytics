@@ -92,7 +92,7 @@ const page = {
 		componentHandler.upgradeDom();
 	},
 	
-	load: (index) => {		
+	load: (index) => {
 		// Clear content
 		const parent = document.getElementById("frame-content");
 		while (parent.firstChild !== null)
@@ -183,6 +183,52 @@ const page = {
 				}
 			});
 		}
+	}
+};
+
+const dialog = {
+	element: null,
+	acceptAction: {
+		"OK": () => {
+			dialog.hide();
+		}
+	},
+	
+	get: () => {
+		if (dialog.element === null)
+		{
+			dialog.element = document.querySelector("dialog");
+		}
+		return dialog.element;
+	},
+	
+	show: (title, content, actions) => {
+		const d = dialog.get();
+		
+		d.querySelector(".mdl-dialog__title").innerHTML = title;
+		d.querySelector(".mdl-dialog__content").innerHTML = content;
+		
+		const buttons = d.querySelector(".mdl-dialog__actions");
+		
+		while (buttons.firstChild !== null)
+		{
+			buttons.removeChild(buttons.firstChild);
+		}
+		
+		Object.keys(actions).forEach((k, i) => {
+			const b = document.createElement("BUTTON");
+			b.setAttribute("class", "mdl-button");
+			b.setAttribute("type", "button");
+			b.onclick = actions[k];
+			b.innerHTML = k;
+			buttons.appendChild(b);
+		});
+		
+		d.showModal();
+	},
+	
+	hide: () => {
+		dialog.get().close();
 	}
 };
 
