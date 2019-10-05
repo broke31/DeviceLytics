@@ -189,7 +189,7 @@ const page = {
 	},
 	
 	clickCard: (o) => {
-		const vars = document.querySelectorAll(".side-menu > input[type=checkbox]");
+		const vars = document.querySelectorAll(".side-menu input[type=checkbox]:checked");
 		if (!vars.length)
 		{
 			dialog.show("Avviso", "Devi selezionare almeno una variabile!", dialog.acceptAction);
