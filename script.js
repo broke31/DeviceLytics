@@ -115,6 +115,9 @@ const page = {
 			
 				const card = components.getCard(page.cards[i].title, page.cards[i].description);
 				card.classList.add("chart-card");
+				card.onclick = () => {
+					page.clickCard(card);
+				};
 				container.appendChild(card);
 				
 				const bg = card.querySelector(".mdl-card__title");
@@ -182,6 +185,15 @@ const page = {
 					}
 				}
 			});
+		}
+	},
+	
+	clickCard: (o) => {
+		const vars = document.querySelectorAll(".side-menu > input[type=checkbox]");
+		if (!vars.length)
+		{
+			dialog.show("Avviso", "Devi selezionare almeno una variabile!", dialog.acceptAction);
+			return;
 		}
 	}
 };
