@@ -35,6 +35,7 @@ const page = {
 		}
 	],
 	drawerToggle: null,
+	frameContent: null,
 	
 	getDrawerToggle: () => {
 		if (page.drawerToggle === null)
@@ -42,6 +43,14 @@ const page = {
 			page.drawerToggle = document.querySelector(".mdl-layout.has-drawer > .mdl-layout__drawer-button");
 		}
 		return page.drawerToggle;
+	},
+	
+	getFrameContent: () => {
+		if (page.frameContent === null)
+		{
+			page.frameContent = document.getElementById("frame-content");
+		}
+		return page.frameContent;
 	},
 	
 	scroll: (o) => {
@@ -94,7 +103,7 @@ const page = {
 	
 	load: (index) => {
 		// Clear content
-		const parent = document.getElementById("frame-content");
+		const parent = page.getFrameContent();
 		while (parent.firstChild !== null)
 		{
 			parent.removeChild(parent.firstChild);
@@ -132,11 +141,33 @@ const page = {
 		{
 			parent.appendChild(document.createElement("HR"));
 		}
+	},
+	
+	clickCard: (o) => {
+		// Build data for chart
+		dataProvider.build();
+		
+		// Check if data is available
+		if (!dataProvider.isValid())
+		{
+			dialog.show("Avviso", "Devi selezionare almeno una variabile!", dialog.acceptAction);
+			return;
+		}
 		
 		// Chart
 		{
+			const parent = page.getFrameContent();
+			
+			{
+				const cc = parent.querySelector(".chart-container");
+				if (cc !== null)
+				{
+					cc.parentNode.removeChild(cc);
+				}
+			}
+		
 			const container = document.createElement("DIV");
-			container.setAttribute("class", "side");
+			container.setAttribute("class", "side chart-container");
 			container.style.overflowX = "auto";
 			container.style.height = "384px";
 			parent.appendChild(container);
@@ -147,32 +178,9 @@ const page = {
 			canvas.style.height = "100%";
 			container.appendChild(canvas);
 			
-			var myChart = new Chart(canvas, {
-				type: 'bar',
-				data: {
-					labels: [ 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange' ],
-					datasets: [{
-						label: '# of Votes',
-						data: [12, 19, 3, 5, 2, 3],
-						backgroundColor: [
-							'rgba(255, 99, 132, 0.2)',
-							'rgba(54, 162, 235, 0.2)',
-							'rgba(255, 206, 86, 0.2)',
-							'rgba(75, 192, 192, 0.2)',
-							'rgba(153, 102, 255, 0.2)',
-							'rgba(255, 159, 64, 0.2)'
-						],
-						borderColor: [
-							'rgba(255, 99, 132, 1)',
-							'rgba(54, 162, 235, 1)',
-							'rgba(255, 206, 86, 1)',
-							'rgba(75, 192, 192, 1)',
-							'rgba(153, 102, 255, 1)',
-							'rgba(255, 159, 64, 1)'
-						],
-						borderWidth: 1
-					}]
-				},
+			new Chart(canvas, {
+				type: 'line',
+				data: dataProvider.get(),
 				options: {
 					responsive: true,
 					maintainAspectRatio: false,
@@ -185,15 +193,6 @@ const page = {
 					}
 				}
 			});
-		}
-	},
-	
-	clickCard: (o) => {
-		const vars = document.querySelectorAll(".side-menu input[type=checkbox]:checked");
-		if (!vars.length)
-		{
-			dialog.show("Avviso", "Devi selezionare almeno una variabile!", dialog.acceptAction);
-			return;
 		}
 	}
 };
@@ -252,5 +251,69 @@ const components = {
 		card.removeAttribute("id");
 		card.removeAttribute("id");
 		return card;
+	}
+};
+
+const dataProvider = {
+	colors: [
+		"255, 99, 132",
+        "54, 162, 235",
+        "255, 206, 86",
+        "75, 192, 192",
+        "153, 102, 255",
+        "255, 159, 64"
+	],
+	variables: {},
+	
+	build: () => {
+		dataProvider.variables = {};
+		document.querySelectorAll(".side-menu .mdl-checkbox.is-checked").forEach((e) => {
+			const key = e.getAttribute("for");
+			const name = e.querySelector(".mdl-checkbox__label").innerHTML;
+			dataProvider.variables[key] = name;
+		});
+	},
+	
+	isValid: () => {
+		return Object.keys(dataProvider.variables).length;
+	},
+	
+	get: () => {
+		const data = {
+			labels: [],
+			datasets: [],
+		};
+		
+		// Dummy labels
+		for (let i = 0; i < 20; ++i)
+		{
+			data.labels.push(i);
+		}
+		
+		Object.keys(dataProvider.variables).forEach((k, i) => {
+			// Get correct color
+			const color = dataProvider.colors[i % dataProvider.colors.length];
+			
+			// Create dataset
+			const dataset = {
+				label: dataProvider.variables[k],
+				data: [],
+				backgroundColor: "rgba(" + color + ", 0.25)",
+				borderColor: "rgba(" + color + ", 1)",
+				borderWidth: 1,
+				fill: false
+			};
+			
+			// Dummy data for dataset
+			for (let j = 0; j < data.labels.length; ++j)
+			{
+				dataset.data.push(Math.round(Math.random() * 100));
+			}
+			
+			// Push dataset
+			data.datasets.push(dataset);
+		});
+		
+		return data;
 	}
 };
