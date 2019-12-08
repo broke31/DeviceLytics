@@ -1,16 +1,3 @@
-INSERT INTO `opvar` (`id`, `column_name`, `column_label`) VALUES
-(1, 'weld_speed', 'Weld Speed'),
-(2, 'command_current', 'Command Current'),
-(3, 'current_output', 'Current Output'),
-(4, 'command_voltage', 'Command Voltage'),
-(5, 'voltage_output', 'Voltage Output'),
-(6, 'short_count', 'Short Count'),
-(7, 'pulse_frequency', 'Pulse Frequency'),
-(8, 'motor_current', 'Motor Current'),
-(9, 'wire_speed', 'Wire Speed'),
-(10, 'instant_arclack_time', 'Instant ArcLack Time'),
-(11, 'error', 'Error');
-
 INSERT INTO `oplog` (`id`, `program`, `position`, `weld_speed`, `command_current`, `current_output`, `command_voltage`, `voltage_output`, `short_count`, `pulse_frequency`, `motor_current`, `wire_speed`, `instant_arclack_time`, `error`) VALUES
 (1, 'SALDATURA OP2', 'P004', 0.8, 220, 0, 18, 3.5, 0, 89, 0.01, 2, 0, 1),
 (2, 'SALDATURA OP2', 'P004', 0.8, 220, 5, 18, 10.9, 0, 72, 0.24, 2, 0, 0),
