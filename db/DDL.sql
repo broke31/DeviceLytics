@@ -5,7 +5,7 @@ CREATE DATABASE IF NOT EXISTS devicelytics;
 USE devicelytics;
 
 CREATE TABLE `opvar` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED PRIMARY KEY,
   `column_name` varchar(64) NOT NULL,
   `column_label` varchar(64) NOT NULL,
   `csv_label` varchar(64) NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE `opvar` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `oplog` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED PRIMARY KEY,
   `program` varchar(128) NOT NULL,
   `position` varchar(16) NOT NULL,
   `weld_speed` float NOT NULL DEFAULT '0',
