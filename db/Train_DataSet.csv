@@ -1,6 +1,6 @@
 Program,Position,Error,Weld_speed,Command_current,Current_output,Command_voltage,Voltage_output,Short_count,Pulse_frequency,Motor_current,Wire_speed,Instant_arc_lack_time
 2,4,N,0.80,220,0,18.0,3.5,0,89,0.01,2.00,0.0
-2,4,N,0.80,220,5,18.0,10.9,0,72,.24,2.00,0.0
+2,4,N,0.80,220,5,18.0,10.9,0,72,0.24,2.00,0.0
 2,4,N,0.80,220,68,18.0,11.5,1,30,0.05,13.30,0.0
 2,4,N,0.80,220,65,18.0,16.3,4,56,0.14,13.30,0.0
 2,4,N,0.80,220,105,18.0,14.7,8,45,0.15,13.30,0.0
